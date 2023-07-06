@@ -20,22 +20,27 @@ def calculate_premium_logic(member_ages, sum_insured, city_tier, tenure):
     # print(rate_card)
     # Calculate premium for different member combinations
     premium = 0
-    
+    # print(member_ages,sum_insured,city_tier,tenure)
+    member_ages = list(map(int,member_ages))
+    sum_insured = list(map(int,sum_insured))
+    city_tier = list(map(int,city_tier))
+    tenure = list(map(int,tenure))
     if len(member_ages) == 1:
           # Single Individual (1a)
         rate_card = rate_card_data[
-        (rate_card_data['SumInsured'] == sum_insured[0]) &
-        (rate_card_data['TierID'] == city_tier[0]) &
-        (rate_card_data['Tenure'] == tenure[0])
+        (rate_card_data['SumInsured'] == int(sum_insured[0])) &
+        (rate_card_data['TierID'] == int(city_tier[0])) &
+        (rate_card_data['Tenure'] == int(tenure[0]))
     ]
+        # print(rate_card)
         age = member_ages[0]
         if(age>=18):
             rate_card_temp = rate_card[rate_card['Age'] == age]
-            premium = premium + int(rate_card_temp['Rate'].values[0]) #Only One Adult
+            premium += int(rate_card_temp['Rate'].values[0]) #Only One Adult
             # print(int(rate_card_temp['Rate'].values[0]))
         else:
             rate_card_temp = rate_card[rate_card['Age'] == age]
-            premium = premium + int(rate_card_temp['Rate'].values[0])/2 #Only One Child
+            premium += int(rate_card_temp['Rate'].values[0])/2 #Only One Child
             # print(int(rate_card_temp['Rate'].values[0])/2)
     else:  # Family combinations
         childrens = []

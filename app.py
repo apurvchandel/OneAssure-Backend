@@ -10,9 +10,9 @@ CORS(app)
 rate_card_data = pd.read_csv('assignment_raw_rate.csv')
 
 # Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['insurance']  # Replace 'insurance' with your MongoDB database name
-premium_collection = db['premiums']  # MongoDB collection to store premium data
+# client = MongoClient('mongodb://localhost:27017/')
+# db = client['insurance']  # Replace 'insurance' with your MongoDB database name
+# premium_collection = db['premiums']  # MongoDB collection to store premium data
 
 def calculate_premium_logic(member_ages, sum_insured, city_tier, tenure):
     # Get the relevant rate card data based on the user inputs
@@ -98,7 +98,7 @@ def store_premium_data(member_ages, sum_insured, city_tier, tenure, premium):
     }
     
     # Insert the document into the MongoDB collection
-    premium_collection.insert_one(data)
+    # premium_collection.insert_one(data)
 
 @app.route('/calculate-premium', methods=['POST'])
 def calculate_premium():
